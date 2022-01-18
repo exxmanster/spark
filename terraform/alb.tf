@@ -20,13 +20,13 @@ resource "aws_alb_target_group" "web" {
   }
 }
 
-resource "aws_alb_target_group" "db" {
-  name     = "DbTargetGroup"
+resource "aws_alb_target_group" "php" {
+  name     = "PhpTargetGroup"
   port     = 80
   protocol = "HTTP"
   vpc_id   = module.vpc.vpc_id
   tags = {
-    Name = "DB TG"
+    Name = "php TG"
   }
 }
 
@@ -42,17 +42,17 @@ resource "aws_alb_target_group_attachment" "web2" {
   port             = 80
 }
 
-resource "aws_alb_target_group_attachment" "db1" {
-  target_group_arn = aws_alb_target_group.db.arn
-  target_id        = module.ec2-db1.instance[0]
+resource "aws_alb_target_group_attachment" "php1" {
+  target_group_arn = aws_alb_target_group.php.arn
+  target_id        = module.ec2-php1.instance[0]
   port             = 80
 }
 
-# resource "aws_alb_target_group_attachment" "db2" {
-#   target_group_arn = aws_alb_target_group.db.arn
-#   target_id        = module.ec2-db2.instance[0]
-#   port             = 80
-# }
+resource "aws_alb_target_group_attachment" "php2" {
+  target_group_arn = aws_alb_target_group.php.arn
+  target_id        = module.ec2-php2.instance[0]
+  port             = 80
+}
 
 resource "aws_alb_listener" "web" {
   load_balancer_arn = aws_alb.main.arn
@@ -72,7 +72,7 @@ resource "aws_alb_listener_rule" "db" {
 
   action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.db.arn
+    target_group_arn = aws_alb_target_group.php.arn
   }
 
   condition {
