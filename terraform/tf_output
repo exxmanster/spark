@@ -1,0 +1,7 @@
+{
+  "bastion_pub_ip": {
+    "sensitive": false,
+    "type": "string",
+    "value": "54.93.48.108"
+  }
+}

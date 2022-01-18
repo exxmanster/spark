@@ -1,0 +1,29 @@
+---
+- name: Install nginx, php
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: enable requarments in amazon-linux extras
+    shell: "amazon-linux-extras enable nginx1.12 epel"
+    become: yes
+
+  - name: Install nginx
+    yum:
+      name: nginx
+      update_cache: yes
+      state: latest
+
+  - name: Replace Index.html
+    host: env_web
+    ansible.builtin.shell: echo "<h1>It's Alive and running from $(hostname -f)<h/1>" > /usr/share/nginx/html/index.html
+
+    # copy: 
+    #    content: "<h1>It's Alive and running from $(hostname -f)<h/1>"
+    #    dest: /usr/share/nginx/html/index.html
+
+  - name: start/enable Nginx
+    service:
+      name: nginx
+      state: started
+      enabled: yes

@@ -1,0 +1,35 @@
+---
+version: "2.1"
+services:
+  phpmyadmin:
+    image: lscr.io/linuxserver/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Kyiv
+      - PMA_ARBITRARY=0 #optional
+      - PMA_HOST=mariadb
+    #  - PMA_ABSOLUTE_URI=https://phpmyadmin.example.com #optional
+    volumes:
+      - ./config/phpmyadmin:/config
+    ports:
+      - 80:80
+    restart: unless-stopped
+ 
+  mariadb:
+    image: lscr.io/linuxserver/mariadb
+    container_name: mariadb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=SUPeR_STR0NG_P@SSwORD!
+      - MYSQL_DATABASE=EDU_DB #optional
+      - MYSQL_USER=MYSQL_USER #optional
+      - MYSQL_PASSWORD=StR0nG-PaSwoRD! #optional
+      
+    volumes:
+      - ./config/mariadb:/config
+    ports:
+      - 3306:3306
+    restart: unless-stopped    
