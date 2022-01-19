@@ -74,7 +74,7 @@ resource "aws_alb_listener_rule" "php_green" {
 }
 
 
-resource "aws_security_group" "alb_sg" {
+resource "aws_security_group" "alb_green_sg" {
   name        = "ELBv2 Grren Security group"
   description = "Allow all traffic to LB"
   vpc_id      = module.vpc.vpc_id
