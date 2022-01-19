@@ -4,7 +4,7 @@
   become: yes
 
   tasks:
-  - name: enable requarments in amazon-linux extras
+  -name: enable requarments in amazon-linux extras
     shell: "amazon-linux-extras enable nginx1.12 php7.2 epel"
     become: yes
 
@@ -45,8 +45,8 @@
       enabled: yes
 
 
-- name: Install mariadb and phpmyadmin
-  hosts: type_db
+- name: Install phpmyadmin
+  hosts: type_php
   become: yes
 
   tasks:
