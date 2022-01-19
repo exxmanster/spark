@@ -1,7 +1,7 @@
 resource "aws_instance" "bastion" {
   ami                    = "ami-05d34d340fb1d89e5"
   instance_type          = "t2.micro"
-  subnet_id              = module.vpc.public_subnet1_id
+  subnet_id              = module.vpc.public_subnet_green_id
   key_name               = aws_key_pair.ssh-key-to-bastion.key_name
   iam_instance_profile   = "SSMRole"
   vpc_security_group_ids = [module.vpc.http_sg, module.vpc.ssh_sg]

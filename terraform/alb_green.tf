@@ -3,7 +3,7 @@ resource "aws_alb" "green" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [module.vpc.http_sg, module.vpc.ssh_sg]
-  subnets            = [module.vpc.public_subnet1_id, module.vpc.public_subnet2_id]
+  subnets            = [module.vpc.public_subnet_green_id, module.vpc.public_subnet_blue_id]
 
   tags = {
     Name = "GreenALB"
@@ -11,7 +11,7 @@ resource "aws_alb" "green" {
 }
 
 resource "aws_alb_target_group" "web_green" {
-  name     = "WebTargetGroup"
+  name     = "GreenWebTargetGroup"
   port     = 80
   protocol = "HTTP"
   vpc_id   = module.vpc.vpc_id
@@ -21,7 +21,7 @@ resource "aws_alb_target_group" "web_green" {
 }
 
 resource "aws_alb_target_group" "php_green" {
-  name     = "PhpTargetGroup"
+  name     = "GreenPhpTargetGroup"
   port     = 80
   protocol = "HTTP"
   vpc_id   = module.vpc.vpc_id
@@ -52,18 +52,18 @@ resource "aws_alb_listener" "web_green" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.web.arn
+    target_group_arn = aws_alb_target_group.web_green.arn
   }
 }
 
 
 resource "aws_alb_listener_rule" "php_green" {
-  listener_arn = aws_alb_listener.web.arn
+  listener_arn = aws_alb_listener.web_green.arn
   priority     = 99
 
   action {
     type             = "forward"
-    target_group_arn = aws_alb_target_group.php.arn
+    target_group_arn = aws_alb_target_group.php_green.arn
   }
 
   condition {
