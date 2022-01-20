@@ -67,7 +67,7 @@ resource "aws_alb_listener_rule" "php_blue" {
 
   condition {
     path_pattern {
-      values = ["/phpmyadmin`/*"]
+      values = ["/phpmyadmin/*"]
     }
   }
 }
