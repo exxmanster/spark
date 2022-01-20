@@ -17,6 +17,6 @@ variable "public_subnet_blue_cidr" {
 }
 
 variable "db_subnet_cidr" {
-  default = "10.0.255.0/31"
+  default = "10.0.255.0/24"
 }
 
