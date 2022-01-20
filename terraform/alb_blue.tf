@@ -59,7 +59,6 @@ resource "aws_alb_listener" "web_blue" {
 
 resource "aws_alb_listener_rule" "php_blue" {
   listener_arn = aws_alb_listener.web_blue.arn
-  priority     = 99
 
   action {
     type             = "forward"
@@ -68,7 +67,7 @@ resource "aws_alb_listener_rule" "php_blue" {
 
   condition {
     path_pattern {
-      values = ["/phpMyAdmin/*"]
+      values = ["/phpmyadmin`/*"]
     }
   }
 }
