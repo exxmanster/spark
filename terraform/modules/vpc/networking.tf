@@ -86,7 +86,7 @@ resource "aws_subnet" "public_blue" {
   }
 }
 
-resource "aws_subnet" "db_privat_subnet" {
+resource "aws_subnet" "db_private_subnet" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "${var.db_subnet_cidr}"
   availability_zone = data.aws_availability_zones.available.names[2]
@@ -154,5 +154,10 @@ resource "aws_route_table_association" "private-green" {
 
 resource "aws_route_table_association" "private-blue" {
   subnet_id      = aws_subnet.private_blue.id
+  route_table_id = aws_route_table.priv-RT-blue.id
+}
+
+resource "aws_route_table_association" "private-db" {
+  subnet_id      = aws_subnet.db_private_subnet.id
   route_table_id = aws_route_table.priv-RT-blue.id
 }

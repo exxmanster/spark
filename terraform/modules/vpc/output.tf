@@ -26,7 +26,7 @@ output "private_subnet_blue_id" {
 
 output "private_subnet_db_id" {
   description = "DB private subnet id"
-  value       = aws_subnet.db_privat_subnet.id
+  value       = aws_subnet.db_private_subnet.id
 }
 
 output "ssh_sg" {

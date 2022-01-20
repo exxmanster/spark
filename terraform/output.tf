@@ -3,6 +3,11 @@ output "bastion_pub_ip" {
   value       = "${aws_instance.bastion.public_ip}"
 }
 
+output "ami" {
+  description = "Ami image"
+  value       = "${data.aws_ami.ama2.id}"
+}
+
 # output "web_ips" {
 #   description = "Web IP's"
 #   value       = "${module.ec2-web1.private_ip[0]}, ${module.ec2-web1.private_ip[0]}"

@@ -1,3 +1,4 @@
+
 resource "aws_instance" "DP4" {
   count         = "${var.ec2_count}"
   ami           = "${var.ami_id}"

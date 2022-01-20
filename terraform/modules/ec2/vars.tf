@@ -2,7 +2,7 @@ variable "ec2_count" {
   default = "1"
 }
 variable "ami_id" {
-  default = "ami-05d34d340fb1d89e5"
+  default = ""
 }
 variable "instance_type" {
   default = "t2.micro"
