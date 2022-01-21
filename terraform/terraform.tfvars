@@ -1,4 +1,1 @@
-variable "region" {
-    default = "eu-central-1"
-  
-}
+region = "eu-central-1"

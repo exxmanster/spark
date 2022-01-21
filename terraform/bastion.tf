@@ -1,5 +1,5 @@
 resource "aws_instance" "bastion" {
-  ami                    = "ami-05d34d340fb1d89e5"
+  ami                    = data.aws_ami.ama2.id
   instance_type          = "t2.micro"
   subnet_id              = module.vpc.public_subnet_green_id
   key_name               = aws_key_pair.ssh-key-to-bastion.key_name
