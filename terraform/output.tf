@@ -8,6 +8,19 @@ output "ami" {
   value       = "${data.aws_ami.ama2.id}"
 }
 
+output "green_alb_url" {
+  description = "ALB Green URL"
+  value       = "${aws_alb.green.dns_name}"
+}
+
+output "blue_alb_url" {
+  description = "ALB Blue URL"
+  value       = "${aws_alb.blue.dns_name}"
+}
+
+
+
+
 # output "web_ips" {
 #   description = "Web IP's"
 #   value       = "${module.ec2-web1.private_ip[0]}, ${module.ec2-web1.private_ip[0]}"
