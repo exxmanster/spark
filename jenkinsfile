@@ -1,8 +1,10 @@
 pipeline {
     agent any
 
-    parameters {
+      parameters {
+       choice(name: 'region', choices: ['eu-central-1', 'us-east-1', 'us-west-1', 'us-east-2', 'eu-west-2'], description: 'Select AWS Region')
        booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
+       
        
     }
     
@@ -14,6 +16,7 @@ pipeline {
         BASTION_ID_PUB = credentials('bastion_id_pub')
         JENKINS_PUB_KEY = credentials('jenkins_pub_key')
         BASTION_PUB_IP = ''
+        AWS_REGION  = "'${params.region}'"
     }
     
      stages {
@@ -65,7 +68,8 @@ pipeline {
             steps {
                 dir('terraform') {
                     sh 'pwd'
-                    sh "terraform apply -input=false tfplan"
+                    sh 'echo \$AWS_REGION'
+                    sh "terraform apply -var 'region=${params.region}' -auto-approve" 
                     sh "BASTION_PUB_IP=\$(terraform output -json | jq -r .bastion_pub_ip.value)"
                     sh 'echo \$BASTION_PUB_IP'
                     
@@ -81,16 +85,17 @@ pipeline {
             steps {
                  dir('terraform') {
                     sh "mv bastion_id id_rsa"
+                    sh "scp -o StrictHostKeyChecking=no id_rsa ec2-user@\$(terraform output -json | jq -r .bastion_pub_ip.value):/home/ec2-user/.ssh"
                     sh '''
                        ssh -o StrictHostKeyChecking=no ec2-user@\$(terraform output -json | jq -r .bastion_pub_ip.value) <<EOF
-                       sudo cp bastion_id .ssh/id_rsa && chmod 600 .ssh/id_rsa
+                       chmod 600 .ssh/id_rsa
                        sudo yum update -y && sudo yum install -y git python3-pip && pip3 install ansible boto3
                        sudo ansible-galaxy collection install amazon.aws
                        git clone https://github.com/exxmanster/Ansible_playground.git
                        ls -la 
                        cd Ansible_playground
                        ansible-playbook playbook.yml
-                       cd && rm -rf Ansible_playground
+                       
                       
                        '''
                 
