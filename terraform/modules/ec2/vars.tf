@@ -18,3 +18,7 @@ variable "tag_env" {
   default = "edu"
 }
 variable "tag_type" {}
+variable "tag_project" {
+  default = "DP4"
+  
+}

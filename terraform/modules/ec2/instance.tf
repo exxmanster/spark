@@ -14,5 +14,6 @@ resource "aws_instance" "DP4" {
     Name = "${var.tag_name}"
     env  = "${var.tag_env}"
     type = "${var.tag_type}"
+    project ="${var.tag_project}"
       }
 }
