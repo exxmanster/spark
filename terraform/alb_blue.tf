@@ -45,7 +45,7 @@ resource "aws_alb_target_group_attachment" "php2" {
 }
 
 
-resource "aws_alb_listener" "web_blue" {
+resource "aws_alb_listener" "blue" {
   load_balancer_arn = aws_alb.blue.arn
   port              = "80"
   protocol          = "HTTP"
@@ -58,7 +58,7 @@ resource "aws_alb_listener" "web_blue" {
 
 
 resource "aws_alb_listener_rule" "php_blue" {
-  listener_arn = aws_alb_listener.web_blue.arn
+  listener_arn = aws_alb_listener.blue.arn
 
   action {
     type             = "forward"
