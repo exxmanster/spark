@@ -24,10 +24,7 @@ variable "cf_domain" {
     default = "devopsedu.xyz"
 } 
 
-variable "cf_api_key"{
-    description = "CLoudflare API KEY"
-    
-}
+variable "cf_api_key"{}
 
 
 
