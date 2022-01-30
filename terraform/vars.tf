@@ -24,9 +24,8 @@ variable "cf_domain" {
     default = "devopsedu.xyz"
 } 
 
-variable "cf_api_key"{
-    default = "002376cdc964acf5a831afc3fc8907b297a6c"
-}
+
+
 
 
 
