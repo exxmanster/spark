@@ -1,6 +1,6 @@
 provider "cloudflare" {
   email = "exxmanster@gmail.com"
-  api_key = "002376cdc964acf5a831afc3fc8907b297a6c"
+  api_key = var.cf_apikey
 }
 
 
